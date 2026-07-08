@@ -1,0 +1,7 @@
+# Ignore Python cache and logs
+*.pyc
+__pycache__/
+.pytest_cache/
+.idea/*
+Reports/
+logs/
