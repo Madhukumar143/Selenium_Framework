@@ -39,25 +39,20 @@ jobs:
 
       - name: Run Tests
         run: |
-          pytest
+          pytest -v --alluredir=Reports
 
       - name: Upload Logs
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: Logs
           path: logs/
-
-      - name: Upload Screenshots
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: Screenshots
-          path: screenshots/
+          if-no-files-found: ignore
 
       - name: Upload Allure Results
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: AllureResults
-          path: allure-results/
+          path: Reports/
+          if-no-files-found: ignore
