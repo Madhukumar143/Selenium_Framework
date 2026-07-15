@@ -1,8 +1,8 @@
 import time
 
-from pynput.keyboard import Key,Controller
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver import Keys, ActionChains
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -70,20 +70,13 @@ class basePage:
         element.clear()
         element.send_keys(text)
 
-    def upload_file(self,file_path,locator_name,locator_value):
-        element = self.get_element(locator_name,locator_value)
-        element.click()
-        time.sleep(2)
-        keyboard = Controller()
-        keyboard.type(file_path)
-        keyboard.press(Key.enter)
-        keyboard.release(Key.enter)
-        time.sleep(3)
+    def upload_file(self, file_path, locator_name, locator_value):
+        upload_element = self.get_element(locator_name, locator_value)
+        upload_element.send_keys(file_path)
+        self.logger.info(f"Uploaded file: {file_path}")
 
     def goto_nextline(self):
-        keyboard = Controller()
-        keyboard.press(Key.enter)
-        keyboard.release(Key.enter)
+        ActionChains(self.driver).send_keys(Keys.ENTER).perform()
 
     #used to click on a particular element
     def element_click(self,locator_name,locator_value):
