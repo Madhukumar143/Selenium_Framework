@@ -2,7 +2,8 @@ name: Selenium Python CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
   workflow_dispatch:
 
@@ -28,7 +29,7 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Setup Chrome
+      - name: Setup Google Chrome
         uses: browser-actions/setup-chrome@v1
 
       - name: Install Dependencies
@@ -36,14 +37,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Download Allure
+      - name: Install Allure CLI
         run: |
           wget https://github.com/allure-framework/allure2/releases/download/2.34.1/allure-2.34.1.tgz
           tar -xzf allure-2.34.1.tgz
           sudo mv allure-2.34.1 /opt/allure
           echo "/opt/allure/bin" >> $GITHUB_PATH
 
-      - name: Run Tests
+      - name: Verify Allure Installation
+        run: |
+          allure --version
+
+      - name: Run Selenium Tests
         run: |
           pytest -v --alluredir=Reports
 
