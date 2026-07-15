@@ -36,7 +36,7 @@ class HomePage(basePage):
         for el in elements:
             print(el.text)
         self.logger.info("Searched successfully")
-        return [el.tself.ext for el in elements if el and el.text]
+        return [el.text for el in elements if el and el.text]
 
     def click_on_product(self):
         self.element_click("imac_xpath",self.imac_xpath)

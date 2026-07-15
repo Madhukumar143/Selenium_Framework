@@ -5,6 +5,7 @@ class LoginPage(basePage):
 
     def __init__(self, driver):
         super().__init__(driver)
+
     # navigation Xpath's
     my_account_menu_xpath = "//span[normalize-space()='My Account']"
     login_option_xpath = "//ul[@class='dropdown-menu dropdown-menu-right']/descendant::a[contains(.,'Login')]"

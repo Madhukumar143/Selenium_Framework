@@ -14,7 +14,7 @@ class basePage:
 
     def __init__(self,driver):
         self.driver = driver
-        self.logger = Logger.get_logger(self.__class__.__name__)
+        self.logger = Logger.get_logger()
 
     #this function will return the list of window_id's of windows opened
     def get_window_handles(self):
@@ -38,16 +38,6 @@ class basePage:
         except:
             return None  # Return None if element is not found or not clickable
 
-    def explicit_wait_dynamic (self, locator_value):
-        try:
-            # Wait for overlay to disappear
-            WebDriverWait(self.driver, 10).until_not(lambda driver: self.is_overlay_present())
-            #Wait until element finishing dynamic loading
-            WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, locator_value)))
-            # Wait for element to be clickable
-            return WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, locator_value)))
-        except:
-            return None  # Return None if element is not found or not clickable
 
     #use this instead of explicit wait1 for waiting to a toast message
     def explicit_wait_for_toast(self,locator_value):

@@ -1,17 +1,19 @@
+from Pages.login_page import LoginPage
 from Tests.baseTest import baseTest
 from Pages.homePage import HomePage
-
+import Variables as var
 
 class TestSearch(baseTest):
     def test_search_mac(self,logger):
         # rely on self.driver provided by baseTest's fixtures
+        loginpage = LoginPage(self.driver)
         homepage = HomePage(self.driver)
+        loginpage.navigate_to_login_page()
+        loginpage.login(var.login_user_1_email,var.password_user_1)
         homepage.search_for("mac")
-        # Wait for results to appear using basePage's explicit_wait
-        homepage.explicit_wait(homepage.product_caption_links_xpath)
-        results = homepage.get_search_results_texts()  # ["mac m1 " , "mac m2"]
-        assert results, "No search results were returned"
-        assert any('mac' in r.lower() for r in results), f"No product with 'mac' found. Results: {results}"
+        search_results = homepage.get_search_results_texts()#["Mac m1" , "mac m2"]
+        assert search_results, "No search results were returned"
+        assert any('mac' in r.lower() for r in search_results), f"No product with 'mac' found. Results: {results}"
 
     def test_add_to_cart(self,logger):
         homepage = HomePage(self.driver)

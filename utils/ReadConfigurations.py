@@ -10,3 +10,6 @@ def read_configuration(category, key):
     if not config.has_section(category):
         raise ValueError(f"Section '{category}' not found in the configuration file.")
     return config.get(category, key)
+
+def get_url():
+    return read_configuration("basic info", "url")

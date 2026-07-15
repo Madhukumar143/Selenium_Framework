@@ -1,22 +1,24 @@
 from Tests.baseTest import baseTest
 from Pages.login_page import LoginPage
-import Variables
+import Variables as var
 
 class TestLogin(baseTest):
 
     def test_valid_login(self):
-        # rely on self.driver provided by baseTest's fixtures
-        login_page = LoginPage(self.driver)
-        login_page.navigate_to_login_page()
-        assert login_page.login_page_confirmation(), "Login page confirmation failed."
-        login_page.login(Variables.login_user_1_email, Variables.password_user_1)
-        assert login_page.login_confirmation(), "Login confirmation failed."
-        login_page.logout()
-        assert login_page.logout_confirmation() , "Logout confirmation failed."
+        loginpage = LoginPage(self.driver)
+        loginpage.navigate_to_login_page()
+        self.logger.info("Logged in")
+        assert loginpage.login_page_confirmation(), "Login page navigation failed"
+        loginpage.login(var.login_user_1_email,var.password_user_1)
+        assert loginpage.login_confirmation() , "Login failed with valid  credentials"
+        loginpage.logout()
+        assert loginpage.logout_confirmation(),"Logout failed"
 
-    def test_invalid_login(self,logger):
-        login_page = LoginPage(self.driver)
-        login_page.navigate_to_login_page()
-        assert login_page.login_page_confirmation(), "Login page confirmation failed."
-        login_page.login(Variables.login_user_1_email, Variables.password_user_1)
-        assert not(login_page.login_confirmation()), "Login successful with invalid credentials, which is unexpected."
+    def test_invalid_login(self):
+        loginpage = LoginPage(self.driver)
+        loginpage.navigate_to_login_page()
+        assert loginpage.login_page_confirmation(), "Navigation to login page failed"
+        loginpage.login(var.login_user_1_email,var.password)
+        assert not(loginpage.login_confirmation()) , "Logged in with invalid credentials"
+
+
