@@ -14,6 +14,15 @@ on:
   schedule:
     - cron: '0 3 * * *'
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   selenium-tests:
 
@@ -29,17 +38,33 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
       - name: Install Google Chrome
         uses: browser-actions/setup-chrome@v1
+
+      - name: Install Allure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y allure
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Tests
+      - name: Run Selenium Tests
         run: |
           pytest -v --alluredir=Reports
+
+      - name: Generate Allure HTML Report
+        if: always()
+        run: |
+          allure generate Reports --clean -o allure-report
 
       - name: Upload Logs
         if: always()
@@ -49,10 +74,28 @@ jobs:
           path: logs/
           if-no-files-found: ignore
 
-      - name: Upload Allure Results
+      - name: Upload Pages Artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: AllureResults
-          path: Reports/
-          if-no-files-found: ignore
+          path: allure-report
+
+  deploy:
+
+    needs: selenium-tests
+
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
