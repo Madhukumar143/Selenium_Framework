@@ -1,0 +1,6 @@
+INFO | Navigated to the register page.
+INFO | Logout Completed
+INFO | Register page is displayed.
+INFO | Attempting to register
+INFO | Registration form submitted.
+INFO | Registration successful, confirmation element is displayed.

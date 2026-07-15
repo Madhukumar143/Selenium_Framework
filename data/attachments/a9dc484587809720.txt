@@ -1,0 +1,5 @@
+INFO | Navigated to the login page.
+INFO | Login page is displayed.
+INFO | Attempting to login
+INFO | Login form submitted.
+ERROR | Login failed, confirmation element is not displayed.

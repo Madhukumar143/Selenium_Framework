@@ -1,0 +1,6 @@
+INFO     Framework:registerPage.py:33 Navigated to the register page.
+INFO     Framework:test_register.py:12 Logout Completed
+INFO     Framework:registerPage.py:39 Register page is displayed.
+INFO     Framework:registerPage.py:46 Attempting to register
+INFO     Framework:registerPage.py:61 Registration form submitted.
+INFO     Framework:registerPage.py:68 Registration successful, confirmation element is displayed.

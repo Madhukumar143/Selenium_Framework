@@ -1,0 +1,8 @@
+INFO     Framework:homePage.py:31 Searched for 'mac' in the search bar.
+INFO     Framework:homePage.py:43 Clicked on the MacBook product link.
+INFO     Framework:homePage.py:47 Clicked on the Add to Cart button for MacBook.
+INFO     Framework:homePage.py:57 Product was successfully added to the cart, confirmation message is displayed.
+INFO     Framework:homePage.py:65 Navigated to the shopping cart page.
+INFO     Framework:homePage.py:71 Product with code is present in the cart.
+INFO     Framework:conftest.py:20 ==================================================
+INFO     Framework:conftest.py:21 ENDING TEST EXECUTION

@@ -1,0 +1,10 @@
+INFO | STARTING TEST EXECUTION
+INFO | ==================================================
+INFO | Navigated to the login page.
+INFO | Logged in
+INFO | Login page is displayed.
+INFO | Attempting to login
+INFO | Login form submitted.
+INFO | Login successful, confirmation element is displayed.
+INFO | Logged out of the account.
+INFO | Logout successful, confirmation element is displayed.

@@ -1,0 +1,5 @@
+INFO     Framework:login_page.py:26 Navigated to the login page.
+INFO     Framework:login_page.py:39 Attempting to login
+INFO     Framework:login_page.py:43 Login form submitted.
+INFO     Framework:homePage.py:31 Searched for 'mac' in the search bar.
+INFO     Framework:homePage.py:38 Searched successfully

@@ -1,0 +1,9 @@
+INFO | Navigated to the login page.
+INFO | Attempting to login
+INFO | Login form submitted.
+INFO | Searched for 'mac' in the search bar.
+iMac
+MacBook
+MacBook Air
+MacBook Pro
+INFO | Searched successfully

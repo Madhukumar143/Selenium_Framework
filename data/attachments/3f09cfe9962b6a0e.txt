@@ -1,0 +1,10 @@
+INFO     Framework:conftest.py:15 STARTING TEST EXECUTION
+INFO     Framework:conftest.py:16 ==================================================
+INFO     Framework:login_page.py:26 Navigated to the login page.
+INFO     Framework:test_login.py:10 Logged in
+INFO     Framework:login_page.py:32 Login page is displayed.
+INFO     Framework:login_page.py:39 Attempting to login
+INFO     Framework:login_page.py:43 Login form submitted.
+INFO     Framework:login_page.py:49 Login successful, confirmation element is displayed.
+INFO     Framework:login_page.py:60 Logged out of the account.
+INFO     Framework:login_page.py:64 Logout successful, confirmation element is displayed.
