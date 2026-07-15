@@ -4,43 +4,27 @@ on:
   push:
     branches: [main]
 
-  pull_request:
-    branches: [main]
-
   workflow_dispatch:
-
-  schedule:
-    - cron: "0 3 * * *"
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install Google Chrome
-        uses: browser-actions/setup-chrome@v1
+      - uses: browser-actions/setup-chrome@v1
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Selenium Tests
+      - name: Run Tests
         run: |
           pytest -v --alluredir=Reports
 
@@ -52,26 +36,10 @@ jobs:
           path: logs/
           if-no-files-found: ignore
 
-      - name: Get Allure History
+      - name: Upload Allure Results
         if: always()
-        uses: actions/checkout@v4
-        continue-on-error: true
+        uses: actions/upload-artifact@v4
         with:
-          ref: gh-pages
-          path: gh-pages
-
-      - name: Generate Allure Report
-        if: always()
-        uses: simple-elf/allure-report-action@v1.9
-        with:
-          allure_results: Reports
-          allure_history: allure-history
-          gh_pages: gh-pages
-
-      - name: Deploy Report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history
+          name: AllureResults
+          path: Reports/
+          if-no-files-found: ignore
