@@ -6,27 +6,59 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - uses: browser-actions/setup-chrome@v1
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Download Allure
+        run: |
+          wget https://github.com/allure-framework/allure2/releases/download/2.34.1/allure-2.34.1.tgz
+          tar -xzf allure-2.34.1.tgz
+          sudo mv allure-2.34.1 /opt/allure
+          echo "/opt/allure/bin" >> $GITHUB_PATH
+
       - name: Run Tests
         run: |
           pytest -v --alluredir=Reports
+
+      - name: Generate Allure Report
+        if: always()
+        run: |
+          allure generate Reports --clean -o allure-report
+
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report
 
       - name: Upload Logs
         if: always()
@@ -34,12 +66,4 @@ jobs:
         with:
           name: Logs
           path: logs/
-          if-no-files-found: ignore
-
-      - name: Upload Allure Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: AllureResults
-          path: Reports/
           if-no-files-found: ignore
