@@ -18,7 +18,7 @@ class TestLogin(baseTest):
     def test_invalid_login(self):
         loginpage = LoginPage(self.driver)
         loginpage.navigate_to_login_page()
-        assert loginpage.login_page_confirmation(), "Navigation to login page failed"
+        assert loginpage.login_page_confirmation(), "Navigation to login page failed "
         loginpage.login(config.LOGIN_EMAIL,config.WRONG_PASSWORD)
         assert not(loginpage.login_confirmation()) , "Logged in with invalid credentials"
 
