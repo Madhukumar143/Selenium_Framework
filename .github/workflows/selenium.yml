@@ -52,7 +52,7 @@ jobs:
 
       - name: Run Selenium Tests
         run: |
-          pytest -v --alluredir=Reports
+          pytest Tests/test_login.py -v --alluredir=Reports
 
       - name: Generate Allure Report
         if: always()
