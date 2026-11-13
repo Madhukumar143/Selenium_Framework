@@ -13,6 +13,7 @@ permissions:
   id-token: write
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
 
@@ -59,21 +60,6 @@ jobs:
         run: |
           allure generate Reports --clean -o allure-report
 
-      - name: Setup GitHub Pages
-        if: always()
-        uses: actions/configure-pages@v5
-
-      - name: Upload GitHub Pages Artifact
-        if: always()
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: allure-report
-
-      - name: Deploy to GitHub Pages
-        if: always()
-        id: deployment
-        uses: actions/deploy-pages@v4
-
       - name: Upload Logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -81,3 +67,22 @@ jobs:
           name: Logs
           path: logs/
           if-no-files-found: ignore
+
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: allure-report
+
+  deploy:
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
