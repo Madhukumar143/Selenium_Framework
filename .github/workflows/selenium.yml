@@ -52,6 +52,10 @@ jobs:
           allure --version
 
       - name: Run Selenium Tests
+        env:
+          LOGIN_USER_1_EMAIL: ${{ secrets.LOGIN_USER_1_EMAIL }}
+          LOGIN_USER_1_PASSWORD: ${{ secrets.LOGIN_USER_1_PASSWORD }}
+          INVALID_PASSWORD: ${{ secrets.INVALID_PASSWORD }}
         run: |
           pytest Tests/test_login.py -v --alluredir=Reports
 
