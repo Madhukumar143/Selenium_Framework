@@ -1,8 +1,6 @@
 from datetime import datetime
 
-login_user_1_email = "madhukumarhm123.com@gmail.com"
-password_user_1 = "Madhu@1234"
-invalid_password = "1234567890"
+
 
 first_name = "Madhu"
 last_name = "Kumar"

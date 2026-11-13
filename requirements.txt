@@ -2,3 +2,4 @@ pytest
 Selenium
 openpyxl
 allure-pytest
+python-dotenv
