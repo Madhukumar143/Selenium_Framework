@@ -1,6 +1,6 @@
 from Tests.baseTest import baseTest
 from Pages.login_page import LoginPage
-import Variables as var
+
 from configurations import config
 
 class TestLogin(baseTest):

@@ -42,6 +42,9 @@ def setup_and_teardown(request):
     browser = ReadConfigurations.read_configuration("basic info", "browser")
     global driver
     options = webdriver.ChromeOptions()
+    options.add_argument("--start-maximized")
+    options.add_argument("--disable-notifications")
+    options.add_argument("--disable-popup-blocking")
 
     if os.getenv("GITHUB_ACTIONS") == "true":
         options.add_argument("--headless=new")
@@ -49,6 +52,7 @@ def setup_and_teardown(request):
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--window-size=1920,1080")
         options.add_argument("--remote-debugging-port=9222")
+
 
     if browser.__eq__("chrome"):
         driver = webdriver.Chrome(options=options)
