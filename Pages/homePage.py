@@ -5,7 +5,6 @@ from selenium.webdriver.common.keys import Keys
 
 
 class HomePage(basePage):
-    # Locator(s) - names must end with _xpath
 
     def __init__(self, driver):
         super().__init__(driver)
